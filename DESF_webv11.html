@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Wellbeing Security Framework (DWSF)</title>
+
+<style>
+:root {
+  --primary: #0F172A;
+  --accent: #2563EB;
+  --accent-light: #EFF6FF;
+  --text: #334155;
+  --text-muted: #64748B;
+  --bg: #F8FAFC;
+  --card-bg: #FFFFFF;
+  --border: #E2E8F0;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --radius: 12px;
+
+  /* Pillar Theme Colors */
+  --pillar-1: #0284C7;
+  --pillar-2: #2563EB;
+  --pillar-3: #4F46E5;
+  --pillar-4: #0D9488;
+  --pillar-gov: #0F172A;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background-color: var(--bg);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+h1, h2, h3 {
+  color: var(--primary);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+h2 { font-size: 1.875rem; text-align: center; margin-bottom: 2.5rem; }
+h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+
+p { margin-bottom: 1rem; }
+.text-center { text-align: center; }
+
+/* --- HEADER STYLES --- */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 24px;   /* REDUCED: Changed top/bottom padding from 15px to 6px */
+  background-color: #121212;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #222222;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon-header {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+}
+
+.header-title {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.header-nav a {
+  color: #b3b3b3;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+}
+
+.header-nav a:hover {
+  color: #ffffff;
+}
+
+/* --- HERO SECTION STYLES --- */
+.hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 12px 20px 12px !important; /* Shrank top/bottom padding significantly */
+  background-color: #121212;
+}
+
+.hero-logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-icon-hero {
+  height: 70px !important;    /* Reduced height from 160px to 70px */
+  width: auto !important;
+  margin-bottom: 10px !important; /* Tightened gap below icon */
+  object-fit: contain;
+}
+.hero-title {
+  color: #ffffff;
+  font-size: 1.5rem !important; /* Scaled down headline font size */
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.hero-subtitle {
+  color: #00A86B;
+  font-size: 0.85rem !important; /* Scaled down subtitle */
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-top: 4px !important;
+}
+
+/* --- LIGHT CONTENT HERO SECTION --- */
+.hero-content {
+  padding: 4rem 0 3rem;
+  text-align: center;
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--bg) 100%);
+}
+
+/* Unify Hero Content Typography */
+.hero-content {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.hero-content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Stat Grid */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.stat-number {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.stat-source {
+  font-size: 0.95rem;
+  font-style: normal;
+  color: var(--text-muted);
+  margin-top: 1rem;
+  margin-bottom: 0;
+  border-top: 1px dashed var(--border);
+  padding-top: 0.5rem;
+  font-style: italic;
+}
+
+.stat-source a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.stat-source a:hover {
+  text-decoration: underline;
+}
+
+section { padding: 4rem 0; }
+
+/* --- DIGITAL MATURITY FRAMEWORK STYLES --- */
+.framework-container {
+  --pillar-1: #ff6b6b;
+  --pillar-2: #ffb703;
+  --pillar-3: #06d6a0;
+  --pillar-4: #4cc9f0;
+  --governance: #6366f1;
+  
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.framework-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.framework-header h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+}
+
+.framework-header p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+}
+
+.circle-diagram-wrapper {
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 3rem;
+}
+
+.circle-diagram-wrapper svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pillars-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.pillar-box {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pillar-box::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 6px;
+}
+
+.box-1::before { background-color: var(--pillar-1); }
+.box-2::before { background-color: var(--pillar-2); }
+.box-3::before { background-color: var(--pillar-3); }
+.box-4::before { background-color: var(--pillar-4); }
+
+.pillar-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  display: inline-block;
+}
+
+.box-1 .pillar-badge { color: var(--pillar-1); }
+.box-2 .pillar-badge { color: #d97706; }
+.box-3 .pillar-badge { color: #059669; }
+.box-4 .pillar-badge { color: #0284c7; }
+
+.pillar-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.pillar-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.pillar-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #e2e8f0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.governance-box {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border-radius: 16px;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+}
+
+.governance-box::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--pillar-1), var(--pillar-2), var(--pillar-3), var(--pillar-4));
+}
+
+.governance-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
+  color: #a5b4fc;
+}
+
+.governance-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0.4rem 0 0.5rem;
+}
+
+.governance-desc {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+}
+
+.governance-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #334155;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+/* Steps / Maturity Flow */
+.steps-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.step-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  flex: 1;
+}
+
+.step-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 1.25rem;
+  font-weight: 700;
+  opacity: 0.5;
+}
+
+.step-badge {
+  background: var(--accent-light);
+  color: var(--accent);
+  font-weight: 700;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 50%;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Benefits Grid */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.benefit-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+/* About Section */
+.about-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.about-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background-color: var(--accent-light);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  border: 2px dashed var(--accent);
+  text-align: center;
+  padding: 10px;
+}
+
+.about-title {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 900px) {
+  .steps-wrapper { flex-direction: column; }
+  .step-arrow { transform: rotate(90deg); margin: -0.5rem 0; }
+}
+
+@media (max-width: 768px) {
+  .site-header { padding: 15px 20px; }
+  .header-nav { display: none; }
+  .pillars-grid, .benefits-grid { grid-template-columns: 1fr; }
+  .about-card { flex-direction: column; text-align: center; }
+  .hero-title { font-size: 1.8rem; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Spotify-Style Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <svg class="logo-icon-header" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M120 20 C170 20 200 45 200 95 C200 155 150 195 120 215 C90 195 40 155 40 95 C40 45 70 20 120 20 Z" stroke="#008B8B" stroke-width="14" fill="none" stroke-linejoin="round"/>
+      <path d="M75 110 C75 80 95 65 120 65 C145 65 165 80 165 110" stroke="#00A86B" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="120" cy="95" r="10" fill="#00A86B"/>
+      <path d="M120 180 C100 160 85 140 85 125 C85 115 95 110 105 118 L120 132 L135 118 C145 110 155 115 155 125 C155 140 140 160 120 180 Z" fill="#32CD32"/>
+    </svg>
+    <span class="header-title">DWSF</span>
+  </div>
+
+  <nav class="header-nav">
+    <a href="#pillars">Pillars</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#benefits">Benefits</a>
+    <a href="#about">About Us</a>
+  </nav>
+</header>
+
+<!-- Hero Section with Minimalist Icon -->
+<section class="hero-section">
+  <div class="hero-logo-wrapper">
+    <svg class="logo-icon-hero" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M120 20 C170 20 200 45 200 95 C200 155 150 195 120 215 C90 195 40 155 40 95 C40 45 70 20 120 20 Z" stroke="#008B8B" stroke-width="14" fill="none" stroke-linejoin="round"/>
+      <path d="M75 110 C75 80 95 65 120 65 C145 65 165 80 165 110" stroke="#00A86B" stroke-width="12" stroke-linecap="round" fill="none"/>
+      <circle cx="120" cy="95" r="10" fill="#00A86B"/>
+      <path d="M120 180 C100 160 85 140 85 125 C85 115 95 110 105 118 L120 132 L135 118 C145 110 155 115 155 125 C155 140 140 160 120 180 Z" fill="#32CD32"/>
+    </svg>
+    
+    <h1 class="hero-title">DIGITAL WELLBEING</h1>
+    <p class="hero-subtitle">SECURITY FRAMEWORK</p>
+  </div>
+</section>
+
+<!-- Content Introduction -->
+<section class="hero-content">
+  <div class="container">
+    <h2>Protecting Students in an Unfiltered Digital World</h2>
+    <p> </p>
+    <p>In today's digital landscape, over 70% of youth have experienced some form of online harm, prompting governments worldwide to implement social media bans to protect their communities.</p> 
+    <p></p>
+    
+      <p>With clear risk visibility, prioritized resource allocation, and proven duty of care for an entire school community we can empower children, teachers, and parents with the tools and knowledge needed to 
+        safely navigate the digital world. </p>
+        <p>Our project stands at the forefront of the global trend of banning social media for adolescents - moving from reactive crisis management to proactive digital resilience.  </p>
+      <p>Together, we can create a safer online environment and foster responsible digital citizenship. Join us in preparing the next generation for the challenges of the internet.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div>
+          <div class="stat-number">17%</div>
+          <h3>Cyberbullying continues to increase</h3>
+          <p>One in six school-aged children experiences cyberbullying.</p>
+        </div>
+        <p class="stat-source">
+          Source: <a href="https://www.who.int" target="_blank" rel="noopener">World Health Organisation (WHO)</a>
+        </p>
+      </div>
+
+      <div class="stat-card">
+        <div>
+          <div class="stat-number">50%+</div>
+          <h3>Surge in Severe Incidents</h3>
+          <p>Reports of high-severity online harms targeting school-aged children have seen continuous multi-year increases.</p>
+        </div>
+        <p class="stat-source">
+          Source: <a href="https://www.aic.gov.au" target="_blank" rel="noopener">AIC Youth Cyber Safety Reports</a>
+        </p>
+      </div>
+
+      <div class="stat-card">
+        <div>
+          <div class="stat-number">70%+</div>
+          <h3>School Spillover</h3>
+          <p>The majority of off-campus cyberbullying and digital conflicts directly impact classroom dynamics and student wellbeing.</p>
+        </div>
+        <p class="stat-source">
+          Source: <a href="https://cyberbullying.org" target="_blank" rel="noopener">Cyberbullying Research Center</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Framework Model -->
+<section id="pillars">
+  <div class="container">
+    <h2>The DWSF Solution: 5 Pillar Benchmarking Framework</h2>
+    
+    <div class="framework-container">
+      <div class="framework-header">
+        <h1>Digital Safety & Maturity Model</h1>
+        <p>Continuous Alignment Across Key Community Stakeholders</p>
+      </div>
+
+      <div class="circle-diagram-wrapper">
+        <svg viewBox="0 0 400 400">
+          <circle cx="200" cy="200" r="175" fill="none" stroke="#f1f5f9" stroke-width="24"/>
+          <path d="M 200 25 A 175 175 0 0 0 25 200" fill="none" stroke="var(--pillar-1)" stroke-width="26" stroke-linecap="round"/>
+          <path d="M 200 25 A 175 175 0 0 1 375 200" fill="none" stroke="var(--pillar-2)" stroke-width="26" stroke-linecap="round"/>
+          <path d="M 375 200 A 175 175 0 0 1 200 375" fill="none" stroke="var(--pillar-3)" stroke-width="26" stroke-linecap="round"/>
+          <path d="M 200 375 A 175 175 0 0 1 25 200" fill="none" stroke="var(--pillar-4)" stroke-width="26" stroke-linecap="round"/>
+
+          <text x="115" y="110" fill="var(--pillar-1)" font-size="12" font-weight="800" text-anchor="middle">
+            <tspan x="115" dy="-4">EDUCATED</tspan>
+            <tspan x="115" dy="16">CHILD</tspan>
+          </text>
+
+          <text x="285" y="110" fill="#d97706" font-size="12" font-weight="800" text-anchor="middle">
+            <tspan x="285" dy="-4">EMPOWERED</tspan>
+            <tspan x="285" dy="16">TEACHERS</tspan>
+          </text>
+
+          <text x="285" y="290" fill="#059669" font-size="12" font-weight="800" text-anchor="middle">
+            <tspan x="285" dy="-4">ENGAGED</tspan>
+            <tspan x="285" dy="16">PARENTS</tspan>
+          </text>
+
+          <text x="115" y="290" fill="#0284c7" font-size="12" font-weight="800" text-anchor="middle">
+            <tspan x="115" dy="-4">ACCESSIBLE</tspan>
+            <tspan x="115" dy="16">HELP</tspan>
+          </text>
+
+          <circle cx="200" cy="200" r="68" fill="#ffffff"/>
+          <text x="200" y="195" fill="var(--primary)" font-size="13" font-weight="800" text-anchor="middle">MATURITY</text>
+          <text x="200" y="213" fill="var(--text-muted)" font-size="10" font-weight="700" text-anchor="middle">FRAMEWORK</text>
+        </svg>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-box box-1">
+          <div>
+            <span class="pillar-badge">Pillar 01</span>
+            <h3 class="pillar-title">1. Educated Child</h3>
+            <p class="pillar-desc">Empowers students with digital literacy, online risk recognition, self-regulation, and positive citizenship behavior.</p>
+          </div>
+          <div class="pillar-footer">
+            <span>Target Score</span>
+            <span>3.0 / 4.0</span>
+          </div>
+        </div>
+
+        <div class="pillar-box box-2">
+          <div>
+            <span class="pillar-badge">Pillar 02</span>
+            <h3 class="pillar-title">2. Empowered Teachers</h3>
+            <p class="pillar-desc">Equips educators with training, classroom guidance tools, and curriculum resources to mentor students safely.</p>
+          </div>
+          <div class="pillar-footer">
+            <span>Target Score</span>
+            <span>3.0 / 4.0</span>
+          </div>
+        </div>
+
+        <div class="pillar-box box-3">
+          <div>
+            <span class="pillar-badge">Pillar 03</span>
+            <h3 class="pillar-title">3. Engaged Parents</h3>
+            <p class="pillar-desc">Aligns home monitoring, clear family rules, and open communication with the school's digital policies.</p>
+          </div>
+          <div class="pillar-footer">
+            <span>Target Score</span>
+            <span>3.0 / 4.0</span>
+          </div>
+        </div>
+
+        <div class="pillar-box box-4">
+          <div>
+            <span class="pillar-badge">Pillar 04</span>
+            <h3 class="pillar-title">4. Accessible Help</h3>
+            <p class="pillar-desc">Provides clear, non-judgmental support paths, rapid reporting channels, and escalation procedures when issues arise.</p>
+          </div>
+          <div class="pillar-footer">
+            <span>Target Score</span>
+            <span>3.0 / 4.0</span>
+          </div>
+        </div>
+
+        <div class="governance-box">
+          <div>
+            <span class="governance-badge">Overarching Foundation</span>
+            <h3 class="governance-title">Institutional Governance & Strategic Oversight</h3>
+            <p class="governance-desc">Connects and sustains all four pillars through official safety policies, data privacy compliance, leadership accountability, continuous stakeholder evaluation, and resource allocation.</p>
+          </div>
+          <div class="governance-footer">
+            <span>Framework Scope</span>
+            <span>Policy, Risk Audit & Continuous Compliance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Assessment Flow Section -->
+<section id="how-it-works" style="background: var(--card-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <h2>How the Assessment Works</h2>
+    <div class="steps-wrapper">
+      <div class="step-card">
+        <div class="step-badge">1</div>
+        <h3>Self-Diagnostic</h3>
+        <p>Complete a targeted assessment evaluating digital wellbeing governance and safety training programs.</p>
+      </div>
+
+      <div class="step-arrow" aria-hidden="true">➔</div>
+
+      <div class="step-card">
+        <div class="step-badge">2</div>
+        <h3>Maturity Scoring</h3>
+        <p>Responses are measured across 4 maturity tiers: <em>Ad-hoc, Reactive, Defined, and Optimized</em>.</p>
+      </div>
+
+      <div class="step-arrow" aria-hidden="true">➔</div>
+
+      <div class="step-card">
+        <div class="step-badge">3</div>
+        <h3>Gap Analysis</h3>
+        <p>Identify critical blind spots across student safety, parent engagement, technical controls, and governance.</p>
+      </div>
+
+      <div class="step-arrow" aria-hidden="true">➔</div>
+
+      <div class="step-card">
+        <div class="step-badge">4</div>
+        <h3>Action Roadmap</h3>
+        <p>Receive a practical, prioritized action plan tailored to raise your school's online safety maturity level.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Benefits Section -->
+<section id="benefits">
+  <div class="container">
+    <h2>Benefits of a Digital Wellbeing Assessment</h2>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <h3>Clear Baseline</h3>
+        <p>Understand your actual protection capabilities instead of relying on assumptions or irrelevant policies.</p>
+      </div>
+      <div class="benefit-item">
+        <h3>Prioritised Budgeting</h3>
+        <p>Direct limited resources and prioritize investment exactly where risks and operational gaps are highest.</p>
+      </div>
+      <div class="benefit-item">
+        <h3>Stakeholder Confidence</h3>
+        <p>Demonstrate proactive duty of care to parents, school boards, and education regulators.</p>
+      </div>
+      <div class="benefit-item">
+        <h3>Proactive Culture</h3>
+        <p>Shift school operations from reacting to online crises toward sustained prevention and individual resilience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" style="background: var(--card-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <h2>About the Creator</h2>
+    <div class="about-card">
+      <div class="about-avatar">Photo Placeholder</div>
+      <div class="about-content">
+        <h3>PS / Founder</h3>
+        <div class="about-title">Cybersecurity Professional & Online Safety Advocate</div>
+        <p>PS is a security professional with over two decades helping organizations enhance their physical and cyber protections.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
