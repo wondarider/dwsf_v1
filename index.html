@@ -80,6 +80,26 @@ section { padding: 4rem 0; }
 }
 .header-nav a:hover { color: #ffffff; }
 
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
 .btn {
   display: inline-block;
   background-color: var(--accent);
@@ -461,8 +481,26 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .site-header { padding: 15px 20px; }
-  .header-nav { display: none; }
+  .site-header { padding: 15px 20px; position: relative; }
+  .nav-toggle { display: flex; }
+
+  .header-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #121212;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 20px;
+    gap: 1rem;
+    border-bottom: 1px solid #222222;
+    z-index: 99;
+  }
+
+  .header-nav.open { display: flex; }
+
   .benefits-grid { grid-template-columns: 1fr; }
   .hero-title { font-size: 1.8rem; }
 
@@ -505,13 +543,19 @@ footer {
     </svg>
     <span class="header-title">DWSF</span>
   </div>
-  <nav class="header-nav">
+  <nav class="header-nav" id="headerNav">
     <a href="#pillars">Pillars</a>
     <a href="#how-it-works">How It Works</a>
     <a href="#benefits">Benefits</a>
     <a href="#about">About Us</a>
     <a href="#get-involved" class="btn">Get Involved</a>
   </nav>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </header>
 
 <!-- ============ DARK HERO ============ -->
@@ -533,7 +577,7 @@ footer {
   <div class="container">
     <h2>Protecting Students in an Unfiltered Digital World</h2>
 
-    <p>Nearly 3 in 4 young people have encountered harmful content online, according to Australia's eSafety Commissioner <sup><a href="#footnote-1" id="ref-1">1</a></sup> . As schools worldwide rethink their digital safeguards and governments introduce social media restrictions, society is taking decisive action against these digital risks.</p>
+    <p>Nearly 3 in 4 young people have encountered harmful content online, according to Australia's eSafety Commissioner<sup><a href="#footnote-1" id="ref-1">1</a></sup>. As schools worldwide rethink their digital safeguards and governments introduce social media restrictions, society is taking decisive action against these digital risks.</p>
 
     <p>With clear risk visibility, prioritised resource allocation, and a proven duty-of-care framework, DWSF equips children, teachers, and parents with the tools and knowledge to navigate the digital world safely.</p>
 
@@ -547,8 +591,8 @@ footer {
       <div class="stat-card">
         <div>
           <div class="stat-number">17%</div>
-          <h3>Of children experience cyberbullying</h3>
-          <p>Since 2018, traditional school bullying has held steady — but cyberbullying keeps climbing, following children's lives further online.</p>
+          <h3>Cyberbullying continues to increase</h3>
+          <p>One in six school-aged children experiences cyberbullying. Since 2018, traditional school bullying has held steady — but cyberbullying keeps climbing, following children's lives further online.</p>
         </div>
         <p class="stat-source">
           Source: <a href="https://www.who.int/europe/news/item/27-03-2024-one-in-six-school-aged-children-experiences-cyberbullying--finds-new-who-europe-study" target="_blank" rel="noopener noreferrer">World Health Organisation (WHO)</a>
@@ -653,7 +697,7 @@ footer {
 <!-- ============ HOW IT WORKS ============ -->
 <section id="how-it-works" style="background: var(--card-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
   <div class="container">
-    <h2>How the DWSF Maturity Assessment works</h2>
+    <h2>How the Assessment Works</h2>
     <p class="text-center" style="max-width: 650px; margin: -1.5rem auto 3rem; color: var(--text-muted);">
       Built on proven cybersecurity maturity methodologies (NIST / AESCSF) and tailored for educational leaders.
     </p>
@@ -661,7 +705,7 @@ footer {
     <div class="steps-wrapper">
       <div class="step-card">
         <div class="step-badge">1</div>
-        <h3>Diagnostic</h3>
+        <h3>Self-Diagnostic</h3>
         <p>Complete a targeted assessment, evaluating digital wellbeing governance arrangements and safety training programs for each group.</p>
       </div>
 
@@ -727,9 +771,7 @@ footer {
         <h3>PS / Founder</h3>
         <div class="about-title">Cybersecurity Professional &amp; Online Safety Advocate</div>
         <p>PS is a security professional with over two decades helping organisations enhance their physical and cyber protections.</p>
-        <p>As a parent, PS watched other parents grow increasingly concerned about how much time their children spend online. 
-          <p>That concern sparked an idea: combine traditional cybersecurity principles with PS's background in psychology and apply them to online safety.</p>
-        <p>The result is a framework that helps schools build a Digital Wellbeing Program from scratch — or assess and strengthen an existing one — so protective measures can adapt and improve over time.</p>
+        <p>As a parent, PS watched other parents grow increasingly concerned about how much time their children spend online. That concern sparked an idea: combine traditional cybersecurity principles with psychology and apply them to online safety. The result is a framework that helps schools build a Digital Wellbeing Program from scratch — or assess and strengthen an existing one — so protective measures can adapt and improve over time.</p>
       </div>
     </div>
   </div>
@@ -740,7 +782,7 @@ footer {
   <div class="cta-section">
     <h2>Do you wish to get involved and help strengthen our children's digital safety?</h2>
     <p>Join us in pioneering safer digital environments for students. Reach out today to participate in pilot assessments or collaborate on framework development.</p>
-    <a href="mailto:your-email@domain.com?subject=Inquiry%3A%20DWSF%20Project%20Participation" class="btn-cta">Email me to get involved</a>
+    <a href="mailto:contact@digitalwellbeingsecurityframework.com?subject=Inquiry%3A%20DWSF%20Project%20Participation" class="btn-cta">Email me to get involved</a>
   </div>
 </section>
 
@@ -792,6 +834,16 @@ footer {
     </div>
   </div>
 </footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const headerNav = document.getElementById('headerNav');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = headerNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+</script>
 
 </body>
 </html>
