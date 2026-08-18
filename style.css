@@ -434,6 +434,48 @@ section { padding: 4rem 0; }
 }
 .btn-cta:hover { background-color: #1D4ED8; }
 
+/* ============ FLOATING CONTACT BUTTON ============ */
+.floating-cta {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: var(--accent);
+  color: #FFFFFF;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 200;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+}
+
+.floating-cta.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.floating-cta:hover {
+  background-color: #1D4ED8;
+}
+
+@media (max-width: 640px) {
+  .floating-cta {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    justify-content: center;
+    padding: 0.9rem 1rem;
+  }
+
 /* ============ FOOTNOTE ============ */
 .footnote {
   font-size: 0.8rem;
