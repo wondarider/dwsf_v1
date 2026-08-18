@@ -525,6 +525,12 @@ footer {
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .about-card { flex-direction: column; text-align: center; }
 }
+@media (max-width: 768px) {
+  .stat-grid {
+    display: flex;
+    ...
+  }
+  .stat-card { flex: 0 0 85%; ... }
 
 @media (max-width: 768px) {
   .site-header {
