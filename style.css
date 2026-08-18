@@ -9,9 +9,8 @@
   --border: #E2E8F0;
   --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
   --radius: 12px;
-  --header-bg: #121212; 
-}
-  
+  --header-bg: #121212;
+
   /* Pillar Theme Colors */
   --pillar-1: #0284C7; /* Sky Blue    - 1. Empowered Child */
   --pillar-2: #2563EB; /* Royal Blue  - 2. Engaged Parent */
@@ -52,6 +51,7 @@ section { padding: 4rem 0; }
   top: 0;
   z-index: 100;
   border-bottom: 1px solid #222222;
+  transition: background-color 180ms ease;
 }
 
 .header-logo { display: flex; align-items: center; gap: 12px; }
@@ -167,7 +167,7 @@ section { padding: 4rem 0; }
   background: var(--card-bg);
   border-left: 6px solid var(--accent);
   border-radius: var(--radius);
-  box-shadow:var(--shadow);
+  box-shadow: var(--shadow);
   padding: 2.5rem;
 }
 
@@ -243,7 +243,7 @@ section { padding: 4rem 0; }
   overflow: hidden;
   box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
   border: 4px solid #FFFFFF;
-  background: #FFFFFF;
+  background: transparent;
 }
 
 .pie-slice {
@@ -527,25 +527,57 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .site-header { padding: 15px 20px; position: relative; }
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1200;
+    background: var(--header-bg);
+    box-shadow: 0 1px 8px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    /* account for device safe area (iPhone notch) */
+    padding-top: calc(0.5rem + env(safe-area-inset-top));
+    /* ensure header height is predictable for content offset below */
+    height: calc(56px + env(safe-area-inset-top));
+    box-sizing: border-box;
+  }
+
   .nav-toggle { display: flex; }
+
+  /* Ensure nav toggle remains visible in the fixed header */
+  .site-header .nav-toggle {
+    margin-left: auto;
+    z-index: 1250;
+  }
 
   .header-nav {
     display: none;
     position: absolute;
-    top: 100%;
     left: 0;
     right: 0;
+    top: calc(56px + env(safe-area-inset-top));
     background-color: #121212;
     flex-direction: column;
     align-items: flex-start;
     padding: 1rem 20px;
     gap: 1rem;
     border-bottom: 1px solid #222222;
-    z-index: 99;
+    z-index: 1190;
   }
 
   .header-nav.open { display: flex; }
+
+  /* Push page content down so it isn't hidden under the fixed header */
+  body {
+    padding-top: calc(56px + env(safe-area-inset-top));
+  }
+
+  /* Floating CTA should sit above main content but below header if needed */
+  .floating-cta { z-index: 1100; }
 
   .benefits-grid { grid-template-columns: 1fr; }
   .hero-title { font-size: 1.8rem; }
@@ -573,118 +605,4 @@ footer {
   .inner-pie { width: 250px; height: 250px; }
   .slice-text { font-size: 0.75rem; width: 85px; }
   .pie-center-hub { width: 65px; height: 65px; font-size: 0.8rem; }
-}
-
-/* Mobile: keep header always visible */
-@media (max-width: 768px) {
-  .site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1200;
-    background: var(--header-bg, #fff); /* use your header background variable or a color */
-    box-shadow: 0 1px 8px rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.5rem 1rem;
-    /* account for device safe area (iPhone notch) */
-    padding-top: calc(0.5rem + env(safe-area-inset-top));
-    /* ensure header height is predictable for content offset below */
-    height: calc(56px + env(safe-area-inset-top));
-    box-sizing: border-box;
-  }
-
-  /* Ensure nav toggle remains visible in the fixed header */
-  .site-header .nav-toggle {
-    margin-left: auto;
-    z-index: 1250;
-  }
-
-  /* If your header-nav becomes a dropdown/overlay, position it below the header */
-  .header-nav {
-    position: relative; /* or absolute if you use overlay styles */
-    top: 0;
-  }
-  .header-nav.open {
-    /* if you use a fullscreen slide-down menu on mobile, start it below the header */
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: calc(56px + env(safe-area-inset-top));
-    z-index: 1190;
-  }
-
-  /* Push page content down so it isn't hidden under the fixed header */
-  body {
-    padding-top: calc(56px + env(safe-area-inset-top));
-  }
-
-  /* Floating CTA should sit above main content but below header if needed */
-  .floating-cta {
-    z-index: 1100;
-  }
-  /* === Mobile fixes: ensure header and pillar wheel colors are preserved === */
-/* Put this at the end of style.css so it overrides earlier rules if needed */
-
-:root {
-  /* Ensure header and pillar variables exist for the loaded stylesheet */
-  --header-bg: #121212;
-  --pillar-1: #0284C7; /* Sky Blue */
-  --pillar-2: #2563EB; /* Royal Blue */
-  --pillar-3: #4F46E5; /* Indigo */
-  --pillar-4: #0D9488; /* Teal */
-}
-
-/* Make sure the header stays dark on mobile and text remains readable */
-@media (max-width: 768px) {
-  .site-header {
-    background: var(--header-bg) !important;
-    color: #ffffff !important;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.12) !important;
-  }
-
-  /* Ensure links and logo text in the header are visible */
-  .site-header a,
-  .site-header .header-title,
-  .site-header .header-logo,
-  .site-header .nav-toggle span {
-    color: #ffffff !important;
-  }
-}
-
-/* Fix the wheel / inner pie so the colored slices show on mobile */
-@media (max-width: 900px) {
-  /* Remove any white background that could obscure slices */
-  .inner-pie {
-    background: transparent !important;
-    border-color: transparent !important;
-  }
-
-  /* Explicitly set slice colors (do not rely on missing variables) */
-  .slice-1 { background: #2563EB !important; } /* top-right (pillar-2) */
-  .slice-2 { background: #4F46E5 !important; } /* bottom-right (pillar-3) */
-  .slice-3 { background: #0D9488 !important; } /* bottom-left (pillar-4) */
-  .slice-4 { background: #0284C7 !important; } /* top-left (pillar-1) */
-
-  /* Ensure the slice text stays white and readable */
-  .slice-text { color: #ffffff !important; text-shadow: 0 1px 2px rgba(0,0,0,0.45) !important; }
-
-  /* Keep the center hub visible and contrasted */
-  .pie-center-hub {
-    background: #ffffff !important; /* keep center white if desired */
-    color: #0F172A !important;
-    border-color: var(--border, #E2E8F0) !important;
-  }
-}
-
-/* Additional defensive override for very small screens */
-@media (max-width: 640px) {
-  .site-header { background: var(--header-bg, #121212) !important; }
-  .inner-pie { background: transparent !important; }
-}
-
-/* Small nicety: smooth background transitions to avoid flashes */
-.site-header { transition: background-color 180ms ease !important; }
 }
