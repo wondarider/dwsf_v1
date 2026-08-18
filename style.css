@@ -572,3 +572,55 @@ footer {
   .slice-text { font-size: 0.75rem; width: 85px; }
   .pie-center-hub { width: 65px; height: 65px; font-size: 0.8rem; }
 }
+
+/* Mobile: keep header always visible */
+@media (max-width: 768px) {
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1200;
+    background: var(--header-bg, #fff); /* use your header background variable or a color */
+    box-shadow: 0 1px 8px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    /* account for device safe area (iPhone notch) */
+    padding-top: calc(0.5rem + env(safe-area-inset-top));
+    /* ensure header height is predictable for content offset below */
+    height: calc(56px + env(safe-area-inset-top));
+    box-sizing: border-box;
+  }
+
+  /* Ensure nav toggle remains visible in the fixed header */
+  .site-header .nav-toggle {
+    margin-left: auto;
+    z-index: 1250;
+  }
+
+  /* If your header-nav becomes a dropdown/overlay, position it below the header */
+  .header-nav {
+    position: relative; /* or absolute if you use overlay styles */
+    top: 0;
+  }
+  .header-nav.open {
+    /* if you use a fullscreen slide-down menu on mobile, start it below the header */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(56px + env(safe-area-inset-top));
+    z-index: 1190;
+  }
+
+  /* Push page content down so it isn't hidden under the fixed header */
+  body {
+    padding-top: calc(56px + env(safe-area-inset-top));
+  }
+
+  /* Floating CTA should sit above main content but below header if needed */
+  .floating-cta {
+    z-index: 1100;
+  }
+}
