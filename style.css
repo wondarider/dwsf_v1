@@ -625,4 +625,66 @@ footer {
   .floating-cta {
     z-index: 1100;
   }
+  /* === Mobile fixes: ensure header and pillar wheel colors are preserved === */
+/* Put this at the end of style.css so it overrides earlier rules if needed */
+
+:root {
+  /* Ensure header and pillar variables exist for the loaded stylesheet */
+  --header-bg: #121212;
+  --pillar-1: #0284C7; /* Sky Blue */
+  --pillar-2: #2563EB; /* Royal Blue */
+  --pillar-3: #4F46E5; /* Indigo */
+  --pillar-4: #0D9488; /* Teal */
+}
+
+/* Make sure the header stays dark on mobile and text remains readable */
+@media (max-width: 768px) {
+  .site-header {
+    background: var(--header-bg) !important;
+    color: #ffffff !important;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.12) !important;
+  }
+
+  /* Ensure links and logo text in the header are visible */
+  .site-header a,
+  .site-header .header-title,
+  .site-header .header-logo,
+  .site-header .nav-toggle span {
+    color: #ffffff !important;
+  }
+}
+
+/* Fix the wheel / inner pie so the colored slices show on mobile */
+@media (max-width: 900px) {
+  /* Remove any white background that could obscure slices */
+  .inner-pie {
+    background: transparent !important;
+    border-color: transparent !important;
+  }
+
+  /* Explicitly set slice colors (do not rely on missing variables) */
+  .slice-1 { background: #2563EB !important; } /* top-right (pillar-2) */
+  .slice-2 { background: #4F46E5 !important; } /* bottom-right (pillar-3) */
+  .slice-3 { background: #0D9488 !important; } /* bottom-left (pillar-4) */
+  .slice-4 { background: #0284C7 !important; } /* top-left (pillar-1) */
+
+  /* Ensure the slice text stays white and readable */
+  .slice-text { color: #ffffff !important; text-shadow: 0 1px 2px rgba(0,0,0,0.45) !important; }
+
+  /* Keep the center hub visible and contrasted */
+  .pie-center-hub {
+    background: #ffffff !important; /* keep center white if desired */
+    color: #0F172A !important;
+    border-color: var(--border, #E2E8F0) !important;
+  }
+}
+
+/* Additional defensive override for very small screens */
+@media (max-width: 640px) {
+  .site-header { background: var(--header-bg, #121212) !important; }
+  .inner-pie { background: transparent !important; }
+}
+
+/* Small nicety: smooth background transitions to avoid flashes */
+.site-header { transition: background-color 180ms ease !important; }
 }
