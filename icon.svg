@@ -1,0 +1,6 @@
+<svg class="logo-icon-header" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M120 20 C170 20 200 45 200 95 C200 155 150 195 120 215 C90 195 40 155 40 95 C40 45 70 20 120 20 Z" stroke="#008B8B" stroke-width="14" fill="none" stroke-linejoin="round"/>
+<path d="M75 110 C75 80 95 65 120 65 C145 65 165 80 165 110" stroke="#00A86B" stroke-width="12" stroke-linecap="round" fill="none"/>
+<circle cx="120" cy="95" r="10" fill="#00A86B"/>
+<path d="M120 180 C100 160 85 140 85 125 C85 115 95 110 105 118 L120 132 L135 118 C145 110 155 115 155 125 C155 140 140 160 120 180 Z" fill="#32CD32"/>
+</svg>
